@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
+// enough when changing adapters.
+// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+  directUrl = env("DATABASE_URL")
+}
+
+model session {
+  id             String             @id
+  shop           String             @unique @db.VarChar(255)
+  state          String             @db.VarChar(255)
+  isOnline       Boolean            @default(false)
+  scope          String?            @db.Text
+  expires        DateTime?
+  accessToken    String             @db.Text
+  userId         BigInt?
+  firstName      String?            @db.VarChar(255)
+  lastName       String?            @db.VarChar(255)
+  email          String?            @db.VarChar(255)
+  accountOwner   Boolean            @default(false)
+  locale         String?            @db.VarChar(255)
+  collaborator   Boolean?           @default(false)
+  emailVerified  Boolean?           @default(false)
+
+  // Relation field
+  mixMatchBundles mix_match_bundle[] @relation("SessionMixMatchBundles")
+
+  @@map("sessions")
+}
+
+model mix_match_bundle {
+  id                BigInt    @id @default(autoincrement())
+  sections          Json?
+  title             String    @db.VarChar(255)
+  discount_type     String    @db.VarChar(255)
+  discount_value    Int  
+  totalqty          Int?   
+  short_description String?   @db.VarChar(255)
+  description       String?   @db.Text
+  media             String?   @db.Text
+  start_datetime    DateTime? @db.DateTime(0)
+  end_datetime      DateTime? @db.DateTime(0)
+  status            String?   @db.VarChar(255)
+  json_table        Json?
+  shopId            String?   @db.VarChar(255)
+  shop              session?  @relation("SessionMixMatchBundles", fields: [shopId], references: [shop])
+  shopifyApiResponse  Json?
+  discountId          String?   @db.VarChar(255)
+
+  createdAt         DateTime  @default(now()) @db.DateTime(0)
+  updatedAt         DateTime  @updatedAt @db.DateTime(0)
+
+  @@index([shopId])
+  @@map("mix_match_bundles")
+}

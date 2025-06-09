@@ -1,0 +1,7 @@
+name = "product-slider"
+type = "theme"
+
+[[blocks]]
+name = "Welcome Block"
+target = "section"
+file = "blocks/bundleapp.liquid"

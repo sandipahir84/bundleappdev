@@ -1,0 +1,115 @@
+{
+  "name": "bundleapp",
+  "handle": "",
+  "modules": [
+    {
+      "type": "function",
+      "handle": "product-discount-bundleapp",
+      "uid": "fac9ee96-ab35-f52a-ffac-0709fd1f6ee5dbb76b10",
+      "assets": "fac9ee96-ab35-f52a-ffac-0709fd1f6ee5dbb76b10",
+      "target": "purchase.product-discount.run",
+      "config": {
+        "title": "t:name",
+        "module_id": "bc93672f-9abd-4f07-80af-404ad4b98163",
+        "description": "t:description",
+        "app_key": "ac7b17b65b7ba18235639d754b1ce3e5",
+        "api_version": "2025-01",
+        "input_query_variables": {
+          "single_json_metafield": {
+            "namespace": "bundle-discount",
+            "key": "product-discount-bundleapp"
+          }
+        },
+        "ui": {
+          "app_bridge": {
+            "details_path": "/",
+            "create_path": "/"
+          }
+        },
+        "enable_creation_ui": true,
+        "localization": {
+          "default_locale": "en",
+          "translations": {
+            "en": "ewogICJuYW1lIjogInByb2R1Y3QtZGlzY291bnQtYnVuZGxlYXBwIiwKICAiZGVzY3JpcHRpb24iOiAicHJvZHVjdC1kaXNjb3VudC1idW5kbGVhcHAiCn0K"
+          }
+        },
+        "targets": [
+          {
+            "handle": "purchase.product-discount.run",
+            "export": "run",
+            "input_query": "query Input($collectionSections: [ID!]) {\n  cart {\n    lines {\n      id\n      quantity\n      cost {\n        totalAmount {\n          amount\n          currencyCode\n        }\n        amountPerQuantity\n        {\n          amount\n          currencyCode\n        }\n      }\n      bundle_name: attribute(key: \"Bundle Name\") {\n        value\n      }\n      merchandise {\n        __typename\n        ... on ProductVariant {\n          id\n          title\n          product {\n          title\n          inAnyCollection(ids:  $collectionSections)\n          inCollections(ids: $collectionSections)\n          {\n          collectionId   \n          isMember     \n          }\n          }\n        }\n      }\n    }\n  }\n    discountNode {\n    metafield(namespace: \"bundle-discount\", key: \"product-discount-bundleapp\") {\n      value\n    }\n  }\n}\n"
+          }
+        ]
+      }
+    },
+    {
+      "type": "theme_app_extension",
+      "handle": "product-slider",
+      "uid": "20524b59-6e28-28fc-4d26-43414146cb8d951187a1",
+      "assets": "20524b59-6e28-28fc-4d26-43414146cb8d951187a1",
+      "target": "",
+      "config": {
+        "theme_extension": {
+          "files": {}
+        }
+      }
+    },
+    {
+      "type": "app_access",
+      "handle": "app_access",
+      "uid": "app_access",
+      "assets": "app_access",
+      "target": "",
+      "config": {
+        "scopes": "",
+        "redirect_url_allowlist": [
+          "https://fifteen-tuning-tone-residence.trycloudflare.com/auth/callback",
+          "https://fifteen-tuning-tone-residence.trycloudflare.com/auth/shopify/callback",
+          "https://fifteen-tuning-tone-residence.trycloudflare.com/api/auth/callback"
+        ]
+      }
+    },
+    {
+      "type": "webhooks",
+      "handle": "webhooks",
+      "uid": "webhooks",
+      "assets": "webhooks",
+      "target": "",
+      "config": {
+        "api_version": "2025-04"
+      }
+    },
+    {
+      "type": "point_of_sale",
+      "handle": "point_of_sale",
+      "uid": "point_of_sale",
+      "assets": "point_of_sale",
+      "target": "",
+      "config": {
+        "embedded": false
+      }
+    },
+    {
+      "type": "app_home",
+      "handle": "app_home",
+      "uid": "app_home",
+      "assets": "app_home",
+      "target": "",
+      "config": {
+        "app_url": "https://fifteen-tuning-tone-residence.trycloudflare.com",
+        "embedded": true
+      }
+    },
+    {
+      "type": "branding",
+      "handle": "branding",
+      "uid": "branding",
+      "assets": "branding",
+      "target": "",
+      "config": {
+        "name": "bundleappsandipdev",
+        "app_handle": "bundleappsandipdev"
+      }
+    }
+  ]
+}

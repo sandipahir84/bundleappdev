@@ -1,0 +1,16 @@
+update new version package.json
+npx npm-check-updates -u
+
+============================
+Shopify app create
+npm create @shopify/app@latest
+
+Shopify app prisma database reset configuration
+npx prisma migrate reset
+
+npx prisma migrate dev --name tableName
+npx prisma migrate dev --name session
+npx prisma migrate dev --name mix_match_bundle
+
+Shopify app install reset
+npx run dev -- --reset
