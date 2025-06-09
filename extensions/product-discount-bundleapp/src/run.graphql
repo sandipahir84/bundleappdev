@@ -1,0 +1,43 @@
+query Input($collectionSections: [ID!]) {
+  cart {
+    lines {
+      id
+      quantity
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+        amountPerQuantity
+        {
+          amount
+          currencyCode
+        }
+      }
+      bundle_name: attribute(key: "Bundle Name") {
+        value
+      }
+      merchandise {
+        __typename
+        ... on ProductVariant {
+          id
+          title
+          product {
+          title
+          inAnyCollection(ids:  $collectionSections)
+          inCollections(ids: $collectionSections)
+          {
+          collectionId   
+          isMember     
+          }
+          }
+        }
+      }
+    }
+  }
+    discountNode {
+    metafield(namespace: "bundle-discount", key: "product-discount-bundleapp") {
+      value
+    }
+  }
+}
